@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:491104636886:android:26e2f6fe7ea594c0",
         "android_client_info": {
-          "package_name": "com.boom.music.player"
+          "package_name": "com.reyansh.audio.audioplayer.free"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "491104636886-vthu0uuc2vek665qvfcl43ei8321btsg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.boom.music.player",
+            "package_name": "com.reyansh.audio.audioplayer.free",
             "certificate_hash": "201b91f0857a228aa1c04b14bf442506b3fc77bc"
           }
         },

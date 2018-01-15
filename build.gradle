@@ -1,5 +1,46 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+project.ext {
+    // TODO: You must update the APP_ID and the KEYSTORE information.
+    //
+    // The APP_ID must be the Android package name uploaded to the Google Play Store.
+    //
+    // The KEYSTORE information should be updated in keystore.properties,
+    // which is located in the project root directory.
+    // The KEYSTORE must be your production keys.
+    //
+    // The storeFile location can be a relative or absolute filename.
+    // https://docs.gradle.org/current/userguide/working_with_files.html
+    APP_ID = "com.reyansh.audio.audioplayer.free"
+
+    KEYSTORE_STORE_FILE = rootProject.file(keystoreProperties['storeFile'])
+    KEYSTORE_STORE_PASSWORD = keystoreProperties['storePassword']
+    KEYSTORE_KEY_ALIAS = keystoreProperties['keyAlias']
+    KEYSTORE_KEY_PASSWORD = keystoreProperties['keyPassword']
+    PLAY_BILLING_LIBRARY = keystoreProperties['playBillingLibrary']
+
+    MINIMUM_SDK_VERSION = 21
+    TARGET_SDK_VERSION = 26
+
+    TOOLS_VERSION = "26.0.1"
+
+    FEATURE_VERSION_CODE = 51
+    FEATURE_VERSION_NAME = "3.4.2"
+
+    RETROFIT_VERSION = "2.2.0"
+    SUPPORT_VERSION = "26.0.1"
+
+}
+
+
 buildscript {
     repositories {
         jcenter()
@@ -28,10 +69,7 @@ allprojects {
         google()
     }
 
-    ext {
-        retrofitVersion = "2.2.0"
-        supportLibVersion = "26.1.0"
-    }
+
 }
 
 task clean(type: Delete) {

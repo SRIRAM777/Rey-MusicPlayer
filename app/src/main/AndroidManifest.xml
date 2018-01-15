@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.boom.music.player">
+    package="com.reyansh.audio.audioplayer">
 
     <permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
@@ -11,21 +11,23 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
 
     <application
-        android:name=".Common"
+        android:name="com.reyansh.audio.audioplayer.free.Common"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon">
+        tools:replace="android:icon"
+        >
         <activity
-            android:name=".Activities.SplashActivity"
+            android:name=".free.Activities.SplashActivity"
             android:theme="@style/AppThemeSubActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,18 +36,18 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".Services.MusicService">
+        <service android:name=".free.Services.MusicService">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </service>
 
-        <receiver android:name=".BroadcastReceivers.HeadsetNotificationBroadcast">
+        <receiver android:name=".free.BroadcastReceivers.HeadsetNotificationBroadcast">
             <intent-filter android:priority="1000000000">
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".AppWidget.SmallWidgetProvider">
+        <receiver android:name=".free.AppWidget.SmallWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -62,38 +64,45 @@
         </receiver>
 
         <activity
-            android:name=".NowPlaying.NowPlayingActivity"
+            android:name=".free.NowPlaying.NowPlayingActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppThemeSubActivity" />
+
         <activity
-            android:name=".Equalizer.EqualizerActivity"
+            android:name=".free.LauncherActivity.DonateActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeSubActivity" />
+
+
+        <activity
+            android:name=".free.Equalizer.EqualizerActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".LauncherActivity.MainActivity"
+            android:name=".free.LauncherActivity.MainActivity"
             android:theme="@style/AppThemeSubActivity" />
 
         <activity
-            android:name=".Search.SearchActivity"
+            android:name=".free.Search.SearchActivity"
             android:theme="@style/AppThemeSubActivity" />
 
 
         <activity
-            android:name=".Setting.SettingActivity"
-            android:parentActivityName=".LauncherActivity.MainActivity"
+            android:name=".free.Setting.SettingActivity"
+            android:parentActivityName=".free.LauncherActivity.MainActivity"
 
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LauncherActivity.MainActivity" />
+                android:value=".free.LauncherActivity.MainActivity" />
         </activity>
 
 
-        <receiver android:name=".BroadcastReceivers.NotificationBroadcastReceiver">
+        <receiver android:name=".free.BroadcastReceivers.NotificationBroadcastReceiver">
             <intent-filter>
-                <action android:name="com.boom.music.player.action.PAUSE" />
-                <action android:name="com.boom.music.player.action.NEXT" />
-                <action android:name="com.boom.music.player.action.PREVIOUS" />
-                <action android:name="com.boom.music.player.action.STOP" />
+                <action android:name="com.reyansh.audio.audioplayer.free.action.PAUSE" />
+                <action android:name="com.reyansh.audio.audioplayer.free.action.NEXT" />
+                <action android:name="com.reyansh.audio.audioplayer.free.action.PREVIOUS" />
+                <action android:name="com.reyansh.audio.audioplayer.free.action.STOP" />
             </intent-filter>
         </receiver>
 
@@ -126,7 +135,7 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <activity
-            android:name=".TagEditor.Id3TagEditorActivity"
+            android:name=".free.TagEditor.Id3TagEditorActivity"
             android:theme="@style/AppThemeSubActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
 

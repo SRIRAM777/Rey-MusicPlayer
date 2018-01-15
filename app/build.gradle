@@ -2,20 +2,31 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 android {
 
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion Integer.valueOf(project.TARGET_SDK_VERSION)
+    buildToolsVersion project.TOOLS_VERSION
+
     defaultConfig {
-        applicationId "com.boom.music.player"
-        minSdkVersion 21
+        applicationId project.APP_ID
+        minSdkVersion Integer.valueOf(project.MINIMUM_SDK_VERSION)
         multiDexEnabled true
-        targetSdkVersion 25
-        versionCode 41
-        versionName "3.3.11"
+        targetSdkVersion project.TARGET_SDK_VERSION
+        versionCode project.FEATURE_VERSION_CODE
+        versionName project.FEATURE_VERSION_NAME
         renderscriptTargetApi 22
         renderscriptSupportModeEnabled true
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
+
+    signingConfigs {
+        release {
+            storeFile project.KEYSTORE_STORE_FILE
+            storePassword project.KEYSTORE_STORE_PASSWORD
+            keyAlias project.KEYSTORE_KEY_ALIAS
+            keyPassword project.KEYSTORE_KEY_PASSWORD
+        }
+    }
+
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
@@ -24,14 +35,15 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            minifyEnabled true
+            signingConfig signingConfigs.release
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "play_billing_license_key", project.PLAY_BILLING_LIBRARY
         }
         debug {
             debuggable true
             minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -51,49 +63,47 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:${supportLibVersion}"
-    compile "com.android.support:animated-vector-drawable:${supportLibVersion}"
-    compile "com.android.support:design:${supportLibVersion}"
-    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
-    compile "com.android.support:palette-v7:${supportLibVersion}"
-    compile "com.android.support:animated-vector-drawable:${supportLibVersion}"
-    compile "com.android.support:mediarouter-v7:${supportLibVersion}"
-    compile "com.android.support:support-v4:${supportLibVersion}"
-    compile "com.android.support:support-vector-drawable:${supportLibVersion}"
-    compile "com.android.support:cardview-v7:${supportLibVersion}"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$project.SUPPORT_VERSION"
+    implementation "com.android.support:animated-vector-drawable:$project.SUPPORT_VERSION"
+    implementation "com.android.support:design:$project.SUPPORT_VERSION"
+    implementation "com.android.support:recyclerview-v7:$project.SUPPORT_VERSION"
+    implementation "com.android.support:palette-v7:$project.SUPPORT_VERSION"
+    implementation "com.android.support:animated-vector-drawable:$project.SUPPORT_VERSION"
+    implementation "com.android.support:mediarouter-v7:$project.SUPPORT_VERSION"
+    implementation "com.android.support:support-v4:$project.SUPPORT_VERSION"
+    implementation "com.android.support:support-vector-drawable:$project.SUPPORT_VERSION"
+    implementation "com.android.support:cardview-v7:$project.SUPPORT_VERSION"
+    implementation 'com.anjlab.android.iab.v3:library:1.0.+'
 
     // ----------------------------------
-
     //  Rx dependencies
-    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
-    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.code-troopers.betterpickers:library:2.5.2'
-    compile 'com.github.channguyen:rsv:1.0.1'
-    compile 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.6.0'
-    compile 'com.squareup.okhttp:okhttp:2.3.0'
-    compile 'com.google.code.gson:gson:2.3'
-    compile 'com.github.Triggertrap:SeekArc:v1.1'
-    compile 'com.google.android.gms:play-services:11.0.1'
-    compile 'commons-io:commons-io:2.4'
-
+    implementation "com.squareup.retrofit2:retrofit:$project.RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$project.RETROFIT_VERSION"
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.code-troopers.betterpickers:library:2.5.2'
+    implementation 'com.github.channguyen:rsv:1.0.1'
+    implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.6.0'
+    implementation 'com.squareup.okhttp:okhttp:2.3.0'
+    implementation 'com.google.code.gson:gson:2.3'
+    implementation 'com.github.Triggertrap:SeekArc:v1.1'
+    implementation 'com.google.android.gms:play-services:11.0.1'
+    implementation 'commons-io:commons-io:2.4'
 
     //JAudioTagger
-    compile files('libs/jaudiotagger-2.0.4-SNAPSHOT.jar')
-
-    compile 'com.google.firebase:firebase-core:11.0.1'
-    compile 'com.google.firebase:firebase-crash:11.0.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'de.psdev.licensesdialog:licensesdialog:1.8.3'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.7.2'
+    implementation files('libs/jaudiotagger-2.0.4-SNAPSHOT.jar')
+    implementation 'com.google.firebase:firebase-core:11.0.1'
+    implementation 'com.google.firebase:firebase-crash:11.0.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'de.psdev.licensesdialog:licensesdialog:1.8.3'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.7'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.7.2'
     // Unit testing dependencies
     testCompile 'junit:junit:4.12'
-    compile files('libs/jsoup-1.10.3.jar')
+    implementation files('libs/jsoup-1.10.3.jar')
 }
 apply plugin: 'com.google.gms.google-services'

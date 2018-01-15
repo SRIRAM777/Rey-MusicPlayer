@@ -80,4 +80,10 @@
         android:visible="true"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/item_purchase"
+        android:title="@string/purchase"
+        android:visible="true"
+        app:showAsAction="never"/>
+
 </menu>

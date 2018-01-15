@@ -58,7 +58,7 @@
                 tools:text="Justin Beiber" />
         </LinearLayout>
 
-        <com.boom.music.player.Views.MusicVisualizer
+        <com.reyansh.audio.audioplayer.free.Views.MusicVisualizer
             android:id="@+id/visualizer"
             android:layout_width="25dp"
             android:layout_height="30dp"
